@@ -39,6 +39,7 @@ class ServiceHelper
                     'method' => $step['method'] ?? 'POST',
                     'path' => $step['path'] ?? '',
                     'presets' => $step['presets'] ?? [],
+                    'browser_redirect' => $step['browser_redirect'] ?? null,
                 ];
             }
             $result[$versionKey] = $steps;

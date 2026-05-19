@@ -14,6 +14,11 @@ interface PresetData {
     body: string;
 }
 
+interface BrowserRedirect {
+    url: string;
+    params: Record<string, string>;
+}
+
 interface StepConfig {
     id: string;
     label: string;
@@ -21,6 +26,7 @@ interface StepConfig {
     path: string;
     note: string;
     presets: Record<string, PresetData>;
+    browser_redirect: BrowserRedirect | null;
 }
 
 interface StepLocalState {
@@ -244,6 +250,50 @@ function tryParseJson(text: string | undefined): unknown {
     }
 }
 
+function triggerBrowserRedirect(step: StepConfig): boolean {
+    const redirect = step.browser_redirect;
+
+    if (!redirect) {
+        return false;
+    }
+
+    const url = interpolate(redirect.url).trim();
+    const state = stepStates[step.id];
+
+    if (!url || url === 'null') {
+        state.response = {
+            error:
+                'No se pudo resolver la URL de destino. Ejecuta el paso previo primero.',
+        };
+
+        return false;
+    }
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = url;
+    form.target = '_blank';
+
+    for (const [key, template] of Object.entries(redirect.params)) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = interpolate(template);
+        form.appendChild(input);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+
+    state.response = {
+        status: 200,
+        body: `Formulario enviado a ${url} en una pestaña nueva.`,
+    };
+
+    return false;
+}
+
 /**
  * Ejecuta un paso. Retorna true si la API respondió con un 2xx
  * (lo necesitamos para encadenar en "Ejecutar todo": si falla, paramos).
@@ -253,6 +303,10 @@ async function submit(stepId: string): Promise<boolean> {
 
     if (!step) {
         return false;
+    }
+
+    if (step.browser_redirect) {
+        return triggerBrowserRedirect(step);
     }
 
     const state = stepStates[stepId];

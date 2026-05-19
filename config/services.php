@@ -1344,6 +1344,628 @@ JSON,
                     ],
                 ],
             ],
+
+            'webpay-plus' => [
+                'kind' => 'pipeline',
+                'group' => 'Pipelines',
+                'label' => 'Webpay Plus',
+                'multi_step' => true,
+                'base_path' => '/rswebpaytransaction/api/webpay',
+                'versions' => [
+                    'v1.0' => [
+                        'steps' => [
+                            'crear' => [
+                                'label' => 'Crear transacción',
+                                'method' => 'POST',
+                                'path' => '/transactions',
+                                'presets' => [
+                                    'success' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555532',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "buy_order": "ordenCompra12345",
+    "session_id": "sesion12345",
+    "amount": 10000,
+    "return_url": "http://www.comercio.cl/webpay/retorno"
+}
+JSON,
+                                    ],
+                                    'mensual' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555532',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "buy_order": "ordenCompra12345",
+    "session_id": "sesion12345",
+    "amount": 10000,
+    "return_url": "http://www.comercio.cl/webpay/retorno",
+    "wpm_detail": {
+        "service_id": "123345567",
+        "card_holder_id": "12345",
+        "card_holder_name": "Juan",
+        "card_holder_last_name1": "Perez",
+        "card_holder_last_name2": "Gonzalez",
+        "card_holder_mail": "juan.perez@gmail.com",
+        "cellphone_number": "9912345678",
+        "expiration_date": "2026-12-31T23:59:59Z",
+        "commerce_mail": "contacto@comercio.cl",
+        "uf_flag": false
+    }
+}
+JSON,
+                                    ],
+                                    'auth_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => 'credencial-invalida',
+                                            'Tbk-Api-Key-Secret' => 'secret-invalido',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "buy_order": "ordenCompra12345",
+    "session_id": "sesion12345",
+    "amount": 10000,
+    "return_url": "http://www.comercio.cl/webpay/retorno"
+}
+JSON,
+                                    ],
+                                    'validation_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555532',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "buy_order": "",
+    "session_id": "sesion12345",
+    "amount": -1,
+    "return_url": ""
+}
+JSON,
+                                    ],
+                                ],
+                            ],
+
+                            'confirmar' => [
+                                'label' => 'Confirmar transacción',
+                                'method' => 'PUT',
+                                'path' => '/transactions/{{steps.crear.token}}',
+                                'presets' => [
+                                    'success' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555532',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        // El PDF muestra `token` en el body pero la API real
+                                        // responde 400 unrecognized field. El token va sólo en la URL.
+                                        'body' => '{}',
+                                    ],
+                                    'auth_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => 'credencial-invalida',
+                                            'Tbk-Api-Key-Secret' => 'secret-invalido',
+                                        ],
+                                        'body' => '{}',
+                                    ],
+                                ],
+                            ],
+
+                            'estado' => [
+                                'label' => 'Estado de la transacción',
+                                'method' => 'GET',
+                                'path' => '/transactions/{{steps.crear.token}}',
+                                'presets' => [
+                                    'success' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555532',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => '',
+                                    ],
+                                    'auth_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => 'credencial-invalida',
+                                            'Tbk-Api-Key-Secret' => 'secret-invalido',
+                                        ],
+                                        'body' => '',
+                                    ],
+                                ],
+                            ],
+
+                            'reembolso' => [
+                                'label' => 'Reembolso de la transacción',
+                                'method' => 'POST',
+                                'path' => '/transactions/{{steps.crear.token}}/refunds',
+                                'presets' => [
+                                    'success' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555532',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "amount": 1000
+}
+JSON,
+                                    ],
+                                    'failed' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555532',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "amount": 999999999
+}
+JSON,
+                                    ],
+                                    'auth_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => 'credencial-invalida',
+                                            'Tbk-Api-Key-Secret' => 'secret-invalido',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "amount": 1000
+}
+JSON,
+                                    ],
+                                ],
+                            ],
+
+                            'captura' => [
+                                'label' => 'Captura diferida',
+                                'method' => 'PUT',
+                                'path' => '/transactions/{{steps.crear.token}}/capture',
+                                'presets' => [
+                                    'success' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555532',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "buy_order": "ordenCompra12345",
+    "authorization_code": "123456",
+    "capture_amount": 1000
+}
+JSON,
+                                    ],
+                                    'failed' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555532',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "buy_order": "ordenCompra12345",
+    "authorization_code": "000000",
+    "capture_amount": 1000
+}
+JSON,
+                                    ],
+                                    'auth_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => 'credencial-invalida',
+                                            'Tbk-Api-Key-Secret' => 'secret-invalido',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "buy_order": "ordenCompra12345",
+    "authorization_code": "123456",
+    "capture_amount": 1000
+}
+JSON,
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+
+            'webpay-mall' => [
+                'kind' => 'pipeline',
+                'group' => 'Pipelines',
+                'label' => 'Webpay Mall',
+                'multi_step' => true,
+                'base_path' => '/rswebpaytransaction/api/webpay',
+                'versions' => [
+                    'v1.0' => [
+                        'steps' => [
+                            'crear' => [
+                                'label' => 'Crear transacción',
+                                'method' => 'POST',
+                                'path' => '/transactions',
+                                'presets' => [
+                                    'success' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555535',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "buy_order": "ordenCompra12345",
+    "session_id": "sesion12345",
+    "return_url": "http://www.comercio.cl/webpay/retorno",
+    "details": [
+        {
+            "amount": 10000,
+            "commerce_code": "597055555536",
+            "buy_order": "ordenCompraTienda1"
+        },
+        {
+            "amount": 5000,
+            "commerce_code": "597055555537",
+            "buy_order": "ordenCompraTienda2"
+        }
+    ]
+}
+JSON,
+                                    ],
+                                    'auth_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => 'credencial-invalida',
+                                            'Tbk-Api-Key-Secret' => 'secret-invalido',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "buy_order": "ordenCompra12345",
+    "session_id": "sesion12345",
+    "return_url": "http://www.comercio.cl/webpay/retorno",
+    "details": [
+        {
+            "amount": 10000,
+            "commerce_code": "597055555536",
+            "buy_order": "ordenCompraTienda1"
+        }
+    ]
+}
+JSON,
+                                    ],
+                                    'validation_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555535',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "buy_order": "",
+    "session_id": "sesion12345",
+    "return_url": "",
+    "details": [
+        {
+            "amount": -1,
+            "commerce_code": "597055555536",
+            "buy_order": ""
+        }
+    ]
+}
+JSON,
+                                    ],
+                                ],
+                            ],
+
+                            'confirmar' => [
+                                'label' => 'Confirmar transacción',
+                                'method' => 'PUT',
+                                'path' => '/transactions/{{steps.crear.token}}',
+                                'presets' => [
+                                    'success' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555535',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        // El PDF muestra `token` en el body pero la API real
+                                        // responde 400 unrecognized field. El token va sólo en la URL.
+                                        'body' => '{}',
+                                    ],
+                                    'auth_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => 'credencial-invalida',
+                                            'Tbk-Api-Key-Secret' => 'secret-invalido',
+                                        ],
+                                        'body' => '{}',
+                                    ],
+                                ],
+                            ],
+
+                            'estado' => [
+                                'label' => 'Estado de la transacción',
+                                'method' => 'GET',
+                                'path' => '/transactions/{{steps.crear.token}}',
+                                'presets' => [
+                                    'success' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555535',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => '',
+                                    ],
+                                    'auth_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => 'credencial-invalida',
+                                            'Tbk-Api-Key-Secret' => 'secret-invalido',
+                                        ],
+                                        'body' => '',
+                                    ],
+                                ],
+                            ],
+
+                            'reembolso' => [
+                                'label' => 'Reembolso de la transacción',
+                                'method' => 'POST',
+                                'path' => '/transactions/{{steps.crear.token}}/refunds',
+                                'presets' => [
+                                    'success' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555535',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "buy_order": "ordenCompraTienda1",
+    "commerce_code": "597055555536",
+    "amount": 1000
+}
+JSON,
+                                    ],
+                                    'failed' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555535',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "buy_order": "ordenCompraTienda1",
+    "commerce_code": "597055555536",
+    "amount": 999999999
+}
+JSON,
+                                    ],
+                                    'auth_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => 'credencial-invalida',
+                                            'Tbk-Api-Key-Secret' => 'secret-invalido',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "buy_order": "ordenCompraTienda1",
+    "commerce_code": "597055555536",
+    "amount": 1000
+}
+JSON,
+                                    ],
+                                ],
+                            ],
+
+                            'captura' => [
+                                'label' => 'Captura diferida',
+                                'method' => 'PUT',
+                                'path' => '/transactions/{{steps.crear.token}}/capture',
+                                'presets' => [
+                                    'success' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555535',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "commerce_code": "597055555536",
+    "buy_order": "ordenCompraTienda1",
+    "authorization_code": "123456",
+    "capture_amount": 1000
+}
+JSON,
+                                    ],
+                                    'failed' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555535',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "commerce_code": "597055555536",
+    "buy_order": "ordenCompraTienda1",
+    "authorization_code": "000000",
+    "capture_amount": 1000
+}
+JSON,
+                                    ],
+                                    'auth_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => 'credencial-invalida',
+                                            'Tbk-Api-Key-Secret' => 'secret-invalido',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "commerce_code": "597055555536",
+    "buy_order": "ordenCompraTienda1",
+    "authorization_code": "123456",
+    "capture_amount": 1000
+}
+JSON,
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+
+            'oneclick' => [
+                'kind' => 'pipeline',
+                'group' => 'Pipelines',
+                'label' => 'Oneclick',
+                'multi_step' => true,
+                'base_path' => '/rswebpaytransaction/api/oneclick',
+                'versions' => [
+                    'v1.0' => [
+                        'steps' => [
+                            'crear' => [
+                                'label' => 'Crear inscripción',
+                                'method' => 'POST',
+                                'path' => '/inscriptions',
+                                'presets' => [
+                                    'success' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555547',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "username": "juanperez",
+    "email": "juan.perez@gmail.com",
+    "response_url": "http://www.comercio.cl/return_inscription"
+}
+JSON,
+                                    ],
+                                    'auth_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => 'credencial-invalida',
+                                            'Tbk-Api-Key-Secret' => 'secret-invalido',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "buy_order": "ordenCompra12345",
+    "session_id": "sesion12345",
+    "return_url": "http://www.comercio.cl/webpay/retorno",
+    "details": [
+        {
+            "amount": 10000,
+            "commerce_code": "597055555536",
+            "buy_order": "ordenCompraTienda1"
+        }
+    ]
+}
+JSON,
+                                    ],
+                                    'validation_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555535',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => <<<'JSON'
+{
+    "buy_order": "",
+    "session_id": "sesion12345",
+    "return_url": "",
+    "details": [
+        {
+            "amount": -1,
+            "commerce_code": "597055555536",
+            "buy_order": ""
+        }
+    ]
+}
+JSON,
+                                    ],
+                                ],
+                            ],
+
+                            'mostrar' => [
+                                'label' => 'Mostrar formulario',
+                                'method' => 'POST',
+                                'path' => '',
+                                'presets' => [],
+                                'browser_redirect' => [
+                                    'url' => '{{steps.crear.url_webpay}}',
+                                    'params' => [
+                                        'TBK_TOKEN' => '{{steps.crear.token}}',
+                                    ],
+                                ],
+                            ],
+
+                            'confirmar' => [
+                                'label' => 'Confirmar inscripción',
+                                'method' => 'PUT',
+                                'path' => '/inscriptions/{{steps.crear.token}}',
+                                'presets' => [
+                                    'success' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555547',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                         'body' => '{}',
+                                    ],
+                                    'auth_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => 'credencial-invalida',
+                                            'Tbk-Api-Key-Secret' => 'secret-invalido',
+                                        ],
+                                        'body' => '{}',
+                                    ],
+                                ],
+                            ],
+
+                            'eliminar' => [
+                                'label' => 'Eliminar inscripción',
+                                'method' => 'DELETE',
+                                'path' => '/inscriptions',
+                                'presets' => [
+                                    'success' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555547',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        // El PDF muestra `token` en el body pero la API real
+                                        // responde 400 unrecognized field. El token va sólo en la URL.
+                                        'body' => '{
+    "username": "juanperez",
+    "tbk_user": "{{steps.confirmar.tbk_user}}"
+}',
+                                    ],
+                                    'auth_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => 'credencial-invalida',
+                                            'Tbk-Api-Key-Secret' => 'secret-invalido',
+                                        ],
+                                        'body' => '{}',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ],
     ],
 

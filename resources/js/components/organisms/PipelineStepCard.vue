@@ -16,6 +16,11 @@ interface PresetData {
     body: string;
 }
 
+interface BrowserRedirect {
+    url: string;
+    params: Record<string, string>;
+}
+
 interface StepConfig {
     id: string;
     label: string;
@@ -23,6 +28,7 @@ interface StepConfig {
     path: string;
     note: string;
     presets: Record<string, PresetData>;
+    browser_redirect: BrowserRedirect | null;
 }
 
 interface ExecutionResult {
@@ -79,6 +85,7 @@ const errorMessage = computed<string | null>(
 );
 
 const isLast = computed(() => props.index === props.total - 1);
+const isRedirect = computed(() => props.step.browser_redirect !== null);
 </script>
 
 <template>
@@ -139,7 +146,10 @@ const isLast = computed(() => props.index === props.total - 1);
                     :pending="submitting"
                 />
                 <Button :disabled="submitting" @click.stop="emit('submit')">
-                    {{ submitting ? 'Enviando…' : 'Ejecutar' }}
+                    <template v-if="isRedirect">Abrir formulario</template>
+                    <template v-else>{{
+                        submitting ? 'Enviando…' : 'Ejecutar'
+                    }}</template>
                 </Button>
                 <button
                     type="button"
@@ -171,29 +181,55 @@ const isLast = computed(() => props.index === props.total - 1);
                             {{ step.note }}
                         </div>
 
-                        <FormField label="URL destino">
-                            <TextInput :model-value="targetUrl" readonly copy />
-                        </FormField>
-
-                        <Tabs v-model="activeTab" :tabs="REQUEST_TABS" />
-                        <div class="p-4">
-                            <div v-show="activeTab === 'headers'">
-                                <HeadersEditor v-model="headers" />
+                        <template v-if="isRedirect">
+                            <div
+                                class="rounded-md border border-[#e3e3e0] bg-[#fafaf9] p-3 text-xs leading-relaxed text-[#1b1b18] dark:border-[#3E3E3A] dark:bg-[#0a0a0a] dark:text-[#EDEDEC]"
+                            >
+                                <p>
+                                    Este paso no llama al backend: arma un
+                                    <code class="font-mono">&lt;form
+                                        method="POST"&gt;</code> con los datos
+                                    del paso previo y lo envía a la URL de
+                                    Webpay en una pestaña nueva. El
+                                    tarjetahabiente completa el formulario allí
+                                    y vuelve para continuar con el siguiente
+                                    paso manualmente.
+                                </p>
+                                <p class="mt-2 font-mono text-[10px] break-all">
+                                    {{
+                                        step.browser_redirect?.url ?? ''
+                                    }}
+                                </p>
                             </div>
-                            <div v-show="activeTab === 'body'">
+                        </template>
+                        <template v-else>
+                            <FormField label="URL destino">
+                                <TextInput
+                                    :model-value="targetUrl"
+                                    readonly
+                                    copy
+                                />
+                            </FormField>
 
-                                <FormField
-                                    label="Body"
-                                    hint="Texto crudo. Soporta placeholders de pasos previos."
-                                >
-                                    <Textarea
-                                        v-model="body"
-                                        :rows="8"
-                                        placeholder='{"key": "value"}'
-                                    />
-                                </FormField>
+                            <Tabs v-model="activeTab" :tabs="REQUEST_TABS" />
+                            <div class="p-4">
+                                <div v-show="activeTab === 'headers'">
+                                    <HeadersEditor v-model="headers" />
+                                </div>
+                                <div v-show="activeTab === 'body'">
+                                    <FormField
+                                        label="Body"
+                                        hint="Texto crudo. Soporta placeholders de pasos previos."
+                                    >
+                                        <Textarea
+                                            v-model="body"
+                                            :rows="8"
+                                            placeholder='{"key": "value"}'
+                                        />
+                                    </FormField>
+                                </div>
                             </div>
-                        </div>
+                        </template>
 
                         <!-- Respuesta -->
                         <section

@@ -44,15 +44,8 @@ function leaves(items: NavSectionItem[]): NavLeaf[] {
 
 <template>
     <SSidebar v-model="activePath" class="w-64 shrink-0 pb-8">
-        <template #header>
-            <Link href="/" class="block px-4 py-3">
-                <BrandTitle />
-            </Link>
-        </template>
-
         <template v-for="group in groups" :key="group.title">
-            <SSidebarSeparator :title="group.title" />
-
+            <SSidebarItem :as="Link">{{ group.title }} </SSidebarItem>
             <SSidebarItem
                 v-for="item in leaves(group.items)"
                 :key="item.href"

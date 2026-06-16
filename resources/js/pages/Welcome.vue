@@ -19,7 +19,7 @@ const page = usePage<SharedProps>();
 
 /**
  * Aplana la jerarquía a sólo "leaves" linkeables por sección top-level
- * (Servicios, Pipelines). Los subgrupos colapsables del sidebar acá
+ * (Pipelines). Los subgrupos colapsables del sidebar acá
  * aparecen como cards individuales.
  */
 function flatten(items: NavSectionItem[]): Array<{ label: string; href: string }> {
@@ -64,9 +64,8 @@ const sections = computed(() =>
                         rel="noopener noreferrer"
                         class="underline underline-offset-2"
                         >transbankdevelopers.cl</a
-                    >. En "Servicios" cada petición se prueba de forma
-                    independiente; en "Pipelines" se ejecuta el flujo completo
-                    paso a paso.
+                    >. En "Pipelines" se ejecuta el flujo completo paso a
+                    paso.
                 </p>
             </header>
 

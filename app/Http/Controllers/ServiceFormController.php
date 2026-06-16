@@ -35,45 +35,6 @@ class ServiceFormController
         ]);
     }
 
-    public function showStep(string $slug, string $stepId): Response
-    {
-        $config = ServiceHelper::serviceConfig($slug);
-        abort_unless(($config['kind'] ?? 'endpoint') === 'pipeline', HttpResponse::HTTP_NOT_FOUND);
-
-        $defaults = [];
-        $stepInfo = null;
-
-        foreach ($config['versions'] ?? [] as $versionKey => $versionData) {
-            $step = $versionData['steps'][$stepId] ?? null;
-            if (! is_array($step)) {
-                continue;
-            }
-            $defaults[$versionKey] = $step['presets'] ?? [];
-            $stepInfo ??= [
-                'label' => ($step['label'] ?? $stepId),
-                'method' => ($step['method'] ?? 'POST'),
-                'path' => ($step['path'] ?? ''),
-            ];
-        }
-
-        abort_if($stepInfo === null, HttpResponse::HTTP_NOT_FOUND);
-
-        return Inertia::render('Forms/Service', [
-            'slug' => $slug,
-            'label' => $stepInfo['label'],
-            'description' => 'Paso individual de "'.($config['label'] ?? $slug).'".',
-            'defaultBaseUrl' => rtrim(config('services.forms.base_url'), '/'),
-            'basePath' => ($config['base_path'] ?? ''),
-            'basePathByVersion' => ServiceHelper::basePathByVersion($config),
-            'multiStep' => false,
-            'versions' => array_keys($defaults),
-            'defaults' => $defaults,
-            'steps' => null,
-            'initialMethod' => $stepInfo['method'],
-            'initialPath' => $stepInfo['path'],
-        ]);
-    }
-
     public function execute(Request $request, string $slug): JsonResponse
     {
         $config = ServiceHelper::serviceConfig($slug);

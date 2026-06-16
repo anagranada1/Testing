@@ -45,11 +45,6 @@ class HandleInertiaRequests extends Middleware
     /**
      * Build the sidebar navigation as a 2-level tree:
      *
-     *   Servicios
-     *     └── <servicio> (collapsible)
-     *           ├── <step 1> → /forms/<slug>/steps/<id>
-     *           ├── <step 2>
-     *           └── …
      *   Pipelines
      *     └── <servicio> → /forms/<slug>
      *
@@ -62,7 +57,6 @@ class HandleInertiaRequests extends Middleware
     {
         $services = (array) config('services.forms.services', []);
 
-        $unitaryServices = [];
         $pipelines = [];
 
         foreach ($services as $slug => $service) {
@@ -73,12 +67,6 @@ class HandleInertiaRequests extends Middleware
             $slug = (string) $slug;
             $label = (string) ($service['label'] ?? $slug);
             $kind = (string) ($service['kind'] ?? 'endpoint');
-
-            $unitaryServices[] = [
-                'type' => 'group',
-                'title' => $label,
-                'items' => $this->stepLeavesFor($slug, $service),
-            ];
 
             if ($kind === 'pipeline') {
                 $pipelines[] = [
@@ -92,53 +80,9 @@ class HandleInertiaRequests extends Middleware
         return [
             [
                 'type' => 'group',
-                'title' => 'Servicios',
-                'items' => $unitaryServices,
-            ],
-            [
-                'type' => 'group',
                 'title' => 'Pipelines',
                 'items' => $pipelines,
             ],
         ];
-    }
-
-    /**
-     * Devuelve los pasos de un servicio (de la primera versión declarada)
-     * como hojas listas para el sidebar.
-     *
-     * @param  array<string, mixed>  $service
-     * @return array<int, array{type: string, label: string, href: string}>
-     */
-    private function stepLeavesFor(string $slug, array $service): array
-    {
-        $versions = is_array($service['versions'] ?? null) ? $service['versions'] : [];
-        $firstVersion = reset($versions);
-        $firstVersion = is_array($firstVersion) ? $firstVersion : [];
-        $steps = is_array($firstVersion['steps'] ?? null) ? $firstVersion['steps'] : [];
-
-        $leaves = [];
-        foreach ($steps as $stepId => $step) {
-            if (! is_array($step)) {
-                continue;
-            }
-            $leaves[] = [
-                'type' => 'item',
-                'label' => (string) ($step['label'] ?? $stepId),
-                'href' => '/forms/' . $slug . '/steps/' . (string) $stepId,
-            ];
-        }
-
-        // Si el servicio no es multi-step, lo exponemos como un único enlace
-        // al recurso completo.
-        if ($leaves === [] && ! ($service['multi_step'] ?? false)) {
-            $leaves[] = [
-                'type' => 'item',
-                'label' => (string) ($service['label'] ?? $slug),
-                'href' => '/forms/' . $slug,
-            ];
-        }
-
-        return $leaves;
     }
 }

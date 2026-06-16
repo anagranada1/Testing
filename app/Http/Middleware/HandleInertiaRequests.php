@@ -55,7 +55,7 @@ class HandleInertiaRequests extends Middleware
      */
     private function buildNav(): array
     {
-        $services = (array) config('services.forms.services', []);
+        $services = (array) config('services', []);
 
         $pipelines = [];
 

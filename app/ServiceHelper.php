@@ -8,7 +8,7 @@ class ServiceHelper
 {
     public static function serviceConfig(string $slug): array
     {
-        $config = config('services.forms.services.'.$slug);
+        $config = config('services.'.$slug);
         abort_unless(is_array($config), HttpResponse::HTTP_NOT_FOUND);
 
         return $config;

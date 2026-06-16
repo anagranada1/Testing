@@ -16,7 +16,7 @@ class ServiceFormController
     {
         $config = ServiceHelper::serviceConfig($slug);
 
-        $defaultBaseUrl = rtrim(config('services.forms.base_url'), '/');
+        $defaultBaseUrl = rtrim(config('services.base_url'), '/');
         $multiStep = (bool) ($config['multi_step'] ?? false);
 
         return Inertia::render('Forms/Service', [
@@ -58,7 +58,7 @@ class ServiceFormController
         $baseUrl = rtrim(
             filled($payload['baseUrl'] ?? null)
                 ? $payload['baseUrl']
-                : config('services.forms.base_url'),
+                : config('services.base_url'),
             '/'
         );
         $version = $payload['version'];

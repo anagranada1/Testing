@@ -104,8 +104,8 @@ const sections = computed(() =>
                 v-if="sections.every((s) => s.items.length === 0)"
                 class="rounded-md border border-dashed border-[#e3e3e0] bg-white p-6 text-sm text-[#706f6c] dark:border-[#3E3E3A] dark:bg-[#161615] dark:text-[#A1A09A]"
             >
-                No hay servicios configurados todavía. Agrégalos en
-                <code class="font-mono">config/services.php</code>.
+                No hay servicios configurados todavía. Agrégalos creando un
+                archivo en <code class="font-mono">config/services/</code>.
             </section>
         </div>
     </AppLayout>

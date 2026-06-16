@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils';
+import { SButton } from '@placetopay/spartan-vue';
+import { computed } from 'vue';
 
 interface Props {
     type?: 'button' | 'submit' | 'reset';
@@ -13,26 +14,26 @@ const props = withDefaults(defineProps<Props>(), {
     disabled: false,
 });
 
-const variants: Record<NonNullable<Props['variant']>, string> = {
-    primary:
-        'bg-amber-700 text-white hover:bg-amber-800 disabled:bg-amber-700/50',
-    secondary:
-        'border border-[#e3e3e0] bg-white text-[#1b1b18] hover:bg-[#f3f3f0] dark:border-[#3E3E3A] dark:bg-[#161615] dark:text-[#EDEDEC] dark:hover:bg-[#1f1f1e]',
-    ghost: 'text-[#1b1b18] hover:bg-[#f3f3f0] dark:text-[#EDEDEC] dark:hover:bg-[#1f1f1e]',
-};
+// Mapea las variantes locales a las del design system Spartan.
+const spartanVariant = computed(() => {
+    switch (props.variant) {
+        case 'secondary':
+            return 'secondary' as const;
+        case 'ghost':
+            return 'link' as const;
+        default:
+            return 'primary' as const;
+    }
+});
+
+// SButton solo admite 'button' | 'submit'.
+const spartanType = computed(() =>
+    props.type === 'submit' ? ('submit' as const) : ('button' as const),
+);
 </script>
 
 <template>
-    <button
-        :type="props.type"
-        :disabled="props.disabled"
-        :class="
-            cn(
-                'inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed',
-                variants[props.variant],
-            )
-        "
-    >
+    <SButton :type="spartanType" :variant="spartanVariant" :disabled="disabled">
         <slot />
-    </button>
+    </SButton>
 </template>

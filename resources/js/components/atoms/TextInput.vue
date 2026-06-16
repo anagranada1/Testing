@@ -1,13 +1,11 @@
 <script setup lang="ts">
+import { SInput } from '@placetopay/spartan-vue';
 import { ref } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {
-    faAngleDown,
     faClipboard,
     faClipboardCheck,
 } from '@fortawesome/free-solid-svg-icons';
-import { faCopy } from '@fortawesome/free-solid-svg-icons/faCopy';
-import { isSVGTag } from '@vue/shared';
 
 interface Props {
     modelValue: string;
@@ -55,23 +53,15 @@ async function copyValue() {
 </script>
 
 <template>
-    <div :class="copy ? 'flex gap-2' : ''">
-        <input
-            :type="props.type"
-            :value="props.modelValue"
+    <div :class="copy ? 'flex items-center gap-2' : ''">
+        <SInput
+            :model-value="props.modelValue"
             :placeholder="props.placeholder"
-            :readonly="props.readonly"
-            @input="
-                $emit(
-                    'update:modelValue',
-                    ($event.target as HTMLInputElement).value,
-                )
-            "
-            class="flex w-full items-center rounded-md border border-[#e3e3e0] bg-white px-3 py-2 text-sm text-[#1b1b18] focus:border-amber-700 focus:ring-1 focus:ring-amber-700 focus:outline-none"
-            :class="
-                readonly
-                    ? 'placeholder-[#a1a09a] read-only:bg-[#f3f3f0] read-only:text-[#706f6c]'
-                    : ''
+            :type="props.type"
+            :readonly="props.readonly || undefined"
+            class="w-full"
+            @update:model-value="
+                $emit('update:modelValue', String($event ?? ''))
             "
         />
 

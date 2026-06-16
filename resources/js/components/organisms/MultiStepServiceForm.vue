@@ -192,7 +192,7 @@ function getByPath(value: unknown, path: string[]): unknown {
 // Captura comillas opcionales que rodeen el placeholder para saber si
 // estamos dentro de un string JSON. Eso decide qué fallback usar cuando
 // el placeholder no resuelve (null vs "" para no romper JSON).
-const PLACEHOLDER_RE = /(")?\{\{\s*steps\.([\w-]+)\.([\w.]+)\s*\}\}(")?/g;
+const PLACEHOLDER_RE = /(")?\{\{\s*steps\.([\w-]+)\.([\w.]+)\s*}}(")?/g;
 
 function interpolate(text: string): string {
     return text.replace(

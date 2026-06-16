@@ -25,13 +25,13 @@ return [
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
                                         'body' => '{
-                                            "buy_order": "ordenCompra12345678",
-                                            "session_id": "sesion1234564",
-                                            "amount": 10000,
-                                            "cvv": 123,
-                                            "card_number": "4051885600446623",
-                                            "card_expiration_date": "22/10"
-                                        }',
+    "buy_order": "ordenCompra12345678",
+    "session_id": "sesion1234564",
+    "amount": 10000,
+    "cvv": 123,
+    "card_number": "4051885600446623",
+    "card_expiration_date": "22/10"
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -40,13 +40,13 @@ return [
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
                                         'body' => '{
-                                            "buy_order": "ordenCompra12345678",
-                                            "session_id": "sesion1234564",
-                                            "amount": 10000,
-                                            "cvv": 123,
-                                            "card_number": "5186059559590568",
-                                            "card_expiration_date": "22/10"
-                                        }',
+    "buy_order": "ordenCompra12345678",
+    "session_id": "sesion1234564",
+    "amount": 10000,
+    "cvv": 123,
+    "card_number": "5186059559590568",
+    "card_expiration_date": "22/10"
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -70,13 +70,13 @@ return [
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
                                         'body' => '{
-                                            "buy_order": "",
-                                            "session_id": "sesion1234564",
-                                            "amount": -1,
-                                            "cvv": 123,
-                                            "card_number": "4051885600446623",
-                                            "card_expiration_date": "01/01"
-                                        }',
+    "buy_order": "",
+    "session_id": "sesion1234564",
+    "amount": -1,
+    "cvv": 123,
+    "card_number": "4051885600446623",
+    "card_expiration_date": "01/01"
+}',
                                     ],
                                 ],
                             ],
@@ -93,8 +93,8 @@ return [
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
                                         'body' => '{
-                                            "installments_number": 10
-                                        }',
+    "installments_number": 10
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -113,8 +113,8 @@ return [
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
                                         'body' => '{
-                                            "installments_number": 10
-                                        }',
+    "installments_number": 10
+}',
                                     ],
 //                                    'skip' => [
 //                                        'headers' => [
@@ -122,8 +122,7 @@ return [
 //                                            'Tbk-Api-Key-Id' => '597055555530',
 //                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
 //                                        ],
-//                                        'body' => <<<'JSON'
-//{
+//                                        'body' '//{
 //    "installments_number": 0
 //}
 //JSON,
@@ -143,10 +142,10 @@ return [
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
                                         'body' => '{
-                                            "id_query_installments": {{steps.cuotas.id_query_installments}},
-                                            "deferred_period_index": 1,
-                                            "grace_period": false
-                                        }',
+    "id_query_installments": {{steps.cuotas.id_query_installments}},
+    "deferred_period_index": 1,
+    "grace_period": false
+}',
                                     ],
                                     'sin_cuotas' => [
                                         'headers' => [
@@ -163,10 +162,10 @@ return [
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
                                         'body' => '{
-                                            "id_query_installments": 0,
-                                            "deferred_period_index": 0,
-                                            "grace_period": false
-                                        }',
+    "id_query_installments": 0,
+    "deferred_period_index": 0,
+    "grace_period": false
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -175,10 +174,10 @@ return [
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
                                         'body' => '{
-                                            "id_query_installments": {{steps.cuotas.id_query_installments}},
-                                            "deferred_period_index": 1,
-                                            "grace_period": false
-                                        }',
+    "id_query_installments": {{steps.cuotas.id_query_installments}},
+    "deferred_period_index": 1,
+    "grace_period": false
+}',
                                     ],
                                 ],
                             ],
@@ -221,16 +220,14 @@ return [
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "session_id": "sesion12345",
     "amount": 10000,
     "cvv": 123,
     "card_number": "4051885600446623",
     "card_expiration_date": "29/12"
-}
-JSON,
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -238,16 +235,14 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "session_id": "sesion12345",
     "amount": 10000,
     "cvv": 123,
     "card_number": "5186059559590568",
     "card_expiration_date": "29/12"
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -255,16 +250,14 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "session_id": "sesion12345",
     "amount": 10000,
     "cvv": 123,
     "card_number": "4051885600446623",
     "card_expiration_date": "29/12"
-}
-JSON,
+}',
                                     ],
                                     'validation_error' => [
                                         'headers' => [
@@ -272,16 +265,14 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "",
     "session_id": "sesion12345",
     "amount": -1,
     "cvv": 123,
     "card_number": "4051885600446623",
     "card_expiration_date": "01/01"
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -297,11 +288,9 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "installments_number": 3
-}
-JSON,
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -309,11 +298,9 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "installments_number": 99
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -321,11 +308,9 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "installments_number": 3
-}
-JSON,
+}',
                                     ],
 //                                    'skip' => [
 //                                        'headers' => [
@@ -353,13 +338,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
-    "id_query_installments": {{steps.cuotas.id_query_installments}},
+                                        'body' => '{
+    "id_query_installments": "{{steps.cuotas.id_query_installments}}",
     "deferred_period_index": 0,
     "grace_period": false
-}
-JSON,
+}',
                                     ],
                                     'sin_cuotas' => [
                                         'headers' => [
@@ -375,13 +358,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "id_query_installments": 0,
     "deferred_period_index": 0,
     "grace_period": false
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -389,13 +370,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
-    "id_query_installments": {{steps.cuotas.id_query_installments}},
+                                        'body' => '{
+    "id_query_installments": "{{steps.cuotas.id_query_installments}}",
     "deferred_period_index": 0,
     "grace_period": false
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -414,16 +393,14 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "session_id": "sesion12345",
     "amount": 10000,
     "cvv": 123,
     "card_number": "4051885600446623",
     "card_expiration_date": "29/12"
-}
-JSON,
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -431,16 +408,14 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "session_id": "sesion12345",
     "amount": 10000,
     "cvv": 123,
     "card_number": "5186059559590568",
     "card_expiration_date": "29/12"
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -448,16 +423,14 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "session_id": "sesion12345",
     "amount": 10000,
     "cvv": 123,
     "card_number": "4051885600446623",
     "card_expiration_date": "29/12"
-}
-JSON,
+}',
                                     ],
                                     'validation_error' => [
                                         'headers' => [
@@ -465,16 +438,14 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "",
     "session_id": "sesion12345",
     "amount": -1,
     "cvv": 123,
     "card_number": "4051885600446623",
     "card_expiration_date": "01/01"
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -490,11 +461,9 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "installments_number": 3
-}
-JSON,
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -502,11 +471,9 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "installments_number": 99
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -514,11 +481,9 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "installments_number": 3
-}
-JSON,
+}',
                                     ],
 //                                    'skip' => [
 //                                        'headers' => [
@@ -546,13 +511,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
-    "id_query_installments": {{steps.cuotas.id_query_installments}},
+                                        'body' => '{
+    "id_query_installments": "{{steps.cuotas.id_query_installments}}",
     "deferred_period_index": 0,
     "grace_period": false
-}
-JSON,
+}',
                                     ],
                                     'sin_cuotas' => [
                                         'headers' => [
@@ -568,13 +531,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "id_query_installments": 0,
     "deferred_period_index": 0,
     "grace_period": false
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -582,13 +543,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
-    "id_query_installments": {{steps.cuotas.id_query_installments}},
+                                        'body' => '{
+    "id_query_installments": "{{steps.cuotas.id_query_installments}}",
     "deferred_period_index": 0,
     "grace_period": false
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -628,11 +587,9 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "amount": 1000
-}
-JSON,
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -640,11 +597,9 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "amount": 999999999
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -652,11 +607,9 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "amount": 1000
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -672,13 +625,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "authorization_code": "{{steps.confirmar.authorization_code}}",
     "capture_amount": 1000
-}
-JSON,
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -686,13 +637,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "authorization_code": "000000",
     "capture_amount": 1000
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -700,13 +649,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "authorization_code": "{{steps.confirmar.authorization_code}}",
     "capture_amount": 1000
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -722,14 +669,12 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "commerce_code": "597055555530",
     "buy_order": "ordenCompra12345",
     "authorization_code": "{{steps.confirmar.authorization_code}}",
     "amount": 1000
-}
-JSON,
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -737,14 +682,12 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "commerce_code": "597055555530",
     "buy_order": "ordenCompra12345",
     "authorization_code": "000000",
     "amount": 1000
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -752,14 +695,12 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "commerce_code": "597055555530",
     "buy_order": "ordenCompra12345",
     "authorization_code": "{{steps.confirmar.authorization_code}}",
     "amount": 1000
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -775,13 +716,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "commerce_code": "597055555530",
     "buy_order": "ordenCompra12345",
     "authorization_code": "{{steps.confirmar.authorization_code}}"
-}
-JSON,
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -789,13 +728,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "commerce_code": "597055555530",
     "buy_order": "ordenCompra12345",
     "authorization_code": "000000"
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -803,13 +740,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "commerce_code": "597055555530",
     "buy_order": "ordenCompra12345",
     "authorization_code": "{{steps.confirmar.authorization_code}}"
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -825,14 +760,12 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "commerce_code": "597055555530",
     "buy_order": "ordenCompra12345",
     "authorization_code": "{{steps.confirmar.authorization_code}}",
     "amount": 1000
-}
-JSON,
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -840,14 +773,12 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "commerce_code": "597055555530",
     "buy_order": "ordenCompra12345",
     "authorization_code": "000000",
     "amount": 1000
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -855,14 +786,12 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "commerce_code": "597055555530",
     "buy_order": "ordenCompra12345",
     "authorization_code": "{{steps.confirmar.authorization_code}}",
     "amount": 1000
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -878,12 +807,10 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "commerce_code": "597055555530",
     "buy_order": "ordenCompra12345"
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -891,12 +818,10 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "commerce_code": "597055555530",
     "buy_order": "ordenCompra12345"
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -915,8 +840,7 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "session_id": "sesion12345",
     "card_number": "4051885600446623",
@@ -938,8 +862,7 @@ JSON,
             "identify_initiated_trx": 0
         }
     ]
-}
-JSON,
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -947,8 +870,7 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "session_id": "sesion12345",
     "card_number": "5186059559590568",
@@ -970,8 +892,7 @@ JSON,
             "identify_initiated_trx": 0
         }
     ]
-}
-JSON,
+}',
                                     ],
                                     'sin_3ds' => [
                                         'headers' => [
@@ -979,8 +900,7 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "session_id": "sesion12345",
     "card_number": "4051885600446623",
@@ -1002,8 +922,7 @@ JSON,
             "identify_initiated_trx": 0
         }
     ]
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -1011,8 +930,7 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "session_id": "sesion12345",
     "card_number": "4051885600446623",
@@ -1033,8 +951,7 @@ JSON,
             "identify_initiated_trx": 0
         }
     ]
-}
-JSON,
+}',
                                     ],
                                     'validation_error' => [
                                         'headers' => [
@@ -1042,8 +959,7 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "",
     "session_id": "sesion12345",
     "card_number": "4051885600446623",
@@ -1058,8 +974,7 @@ JSON,
             "identify_initiated_trx": 0
         }
     ]
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -1075,13 +990,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "commerce_code": 597038367138,
     "installments_number": 3
-}
-JSON,
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -1089,13 +1002,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "commerce_code": 597038367138,
     "installments_number": 99
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -1103,13 +1014,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "commerce_code": 597038367138,
     "installments_number": 3
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -1125,17 +1034,15 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "details": [
         {
             "commerce_code": 597038367138,
             "buy_order": "ordenCompra12345",
-            "id_query_installments": {{steps.cuotas.id_query_installments}}
+            "id_query_installments": "{{steps.cuotas.id_query_installments}}"
         }
     ]
-}
-JSON,
+}',
                                     ],
                                     'sin_cuotas' => [
                                         'headers' => [
@@ -1143,16 +1050,14 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "details": [
         {
             "commerce_code": 597038367138,
             "buy_order": "ordenCompra12345"
         }
     ]
-}
-JSON,
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -1160,8 +1065,7 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "details": [
         {
             "commerce_code": 597038367138,
@@ -1169,8 +1073,7 @@ JSON,
             "id_query_installments": 0
         }
     ]
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -1178,17 +1081,15 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "details": [
         {
             "commerce_code": 597038367138,
             "buy_order": "ordenCompra12345",
-            "id_query_installments": {{steps.cuotas.id_query_installments}}
+            "id_query_installments": "{{steps.cuotas.id_query_installments}}"
         }
     ]
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -1228,13 +1129,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "commerce_code": "597038367138",
     "buy_order": "ordenCompra12345",
     "amount": 1000
-}
-JSON,
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -1242,13 +1141,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "commerce_code": "597038367138",
     "buy_order": "ordenCompra12345",
     "amount": 999999999
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -1256,13 +1153,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "commerce_code": "597038367138",
     "buy_order": "ordenCompra12345",
     "amount": 1000
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -1278,8 +1173,7 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "card_detail": {
         "card_number": "4051885600446623",
         "card_expiration_date": "29/12",
@@ -1291,8 +1185,7 @@ JSON,
     "message_version": "2.2.0",
     "ds_trans_id": "de8ad526-8835-47fc-b8b9-2e38ccdf0220",
     "commerce_code": 597038367138
-}
-JSON,
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -1300,8 +1193,7 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555530',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "card_detail": {
         "card_number": "5186059559590568",
         "card_expiration_date": "29/12",
@@ -1313,8 +1205,7 @@ JSON,
     "message_version": "2.2.0",
     "ds_trans_id": "de8ad526-8835-47fc-b8b9-2e38ccdf0220",
     "commerce_code": 597038367138
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -1322,8 +1213,7 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "card_detail": {
         "card_number": "4051885600446623",
         "card_expiration_date": "29/12",
@@ -1335,8 +1225,7 @@ JSON,
     "message_version": "2.2.0",
     "ds_trans_id": "de8ad526-8835-47fc-b8b9-2e38ccdf0220",
     "commerce_code": 597038367138
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -1365,14 +1254,12 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555532',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "session_id": "sesion12345",
     "amount": 10000,
     "return_url": "http://www.comercio.cl/webpay/retorno"
-}
-JSON,
+}',
                                     ],
                                     'mensual' => [
                                         'headers' => [
@@ -1380,8 +1267,7 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555532',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "session_id": "sesion12345",
     "amount": 10000,
@@ -1398,8 +1284,7 @@ JSON,
         "commerce_mail": "contacto@comercio.cl",
         "uf_flag": false
     }
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -1407,14 +1292,12 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "session_id": "sesion12345",
     "amount": 10000,
     "return_url": "http://www.comercio.cl/webpay/retorno"
-}
-JSON,
+}',
                                     ],
                                     'validation_error' => [
                                         'headers' => [
@@ -1422,14 +1305,12 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555532',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "",
     "session_id": "sesion12345",
     "amount": -1,
     "return_url": ""
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -1495,11 +1376,9 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555532',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "amount": 1000
-}
-JSON,
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -1507,11 +1386,9 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555532',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "amount": 999999999
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -1519,11 +1396,9 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "amount": 1000
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -1539,13 +1414,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555532',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "authorization_code": "123456",
     "capture_amount": 1000
-}
-JSON,
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -1553,13 +1426,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555532',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "authorization_code": "000000",
     "capture_amount": 1000
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -1567,13 +1438,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "authorization_code": "123456",
     "capture_amount": 1000
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -1602,8 +1471,7 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555535',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "session_id": "sesion12345",
     "return_url": "http://www.comercio.cl/webpay/retorno",
@@ -1619,8 +1487,7 @@ JSON,
             "buy_order": "ordenCompraTienda2"
         }
     ]
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -1628,8 +1495,7 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "session_id": "sesion12345",
     "return_url": "http://www.comercio.cl/webpay/retorno",
@@ -1640,8 +1506,7 @@ JSON,
             "buy_order": "ordenCompraTienda1"
         }
     ]
-}
-JSON,
+}',
                                     ],
                                     'validation_error' => [
                                         'headers' => [
@@ -1649,8 +1514,7 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555535',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "",
     "session_id": "sesion12345",
     "return_url": "",
@@ -1661,8 +1525,7 @@ JSON,
             "buy_order": ""
         }
     ]
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -1728,13 +1591,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555535',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompraTienda1",
     "commerce_code": "597055555536",
     "amount": 1000
-}
-JSON,
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -1742,13 +1603,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555535',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompraTienda1",
     "commerce_code": "597055555536",
     "amount": 999999999
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -1756,13 +1615,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompraTienda1",
     "commerce_code": "597055555536",
     "amount": 1000
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -1778,14 +1635,12 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555535',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "commerce_code": "597055555536",
     "buy_order": "ordenCompraTienda1",
     "authorization_code": "123456",
     "capture_amount": 1000
-}
-JSON,
+}',
                                     ],
                                     'failed' => [
                                         'headers' => [
@@ -1793,14 +1648,12 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555535',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "commerce_code": "597055555536",
     "buy_order": "ordenCompraTienda1",
     "authorization_code": "000000",
     "capture_amount": 1000
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -1808,14 +1661,12 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "commerce_code": "597055555536",
     "buy_order": "ordenCompraTienda1",
     "authorization_code": "123456",
     "capture_amount": 1000
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -1844,13 +1695,11 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555547',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "username": "juanperez",
     "email": "juan.perez@gmail.com",
     "response_url": "http://www.comercio.cl/return_inscription"
-}
-JSON,
+}',
                                     ],
                                     'auth_error' => [
                                         'headers' => [
@@ -1858,8 +1707,7 @@ JSON,
                                             'Tbk-Api-Key-Id' => 'credencial-invalida',
                                             'Tbk-Api-Key-Secret' => 'secret-invalido',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "ordenCompra12345",
     "session_id": "sesion12345",
     "return_url": "http://www.comercio.cl/webpay/retorno",
@@ -1870,8 +1718,7 @@ JSON,
             "buy_order": "ordenCompraTienda1"
         }
     ]
-}
-JSON,
+}',
                                     ],
                                     'validation_error' => [
                                         'headers' => [
@@ -1879,8 +1726,7 @@ JSON,
                                             'Tbk-Api-Key-Id' => '597055555535',
                                             'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
                                         ],
-                                        'body' => <<<'JSON'
-{
+                                        'body' => '{
     "buy_order": "",
     "session_id": "sesion12345",
     "return_url": "",
@@ -1891,8 +1737,7 @@ JSON,
             "buy_order": ""
         }
     ]
-}
-JSON,
+}',
                                     ],
                                 ],
                             ],
@@ -1911,7 +1756,7 @@ JSON,
                             ],
 
                             'confirmar' => [
-                                'label' => 'Confirmar inscripción',
+                                'label' => 'Confirmar inscripción (Finalizar)',
                                 'method' => 'PUT',
                                 'path' => '/inscriptions/{{steps.crear.token}}',
                                 'presets' => [
@@ -1950,6 +1795,116 @@ JSON,
                                         'body' => '{
     "username": "juanperez",
     "tbk_user": "{{steps.confirmar.tbk_user}}"
+}',
+                                    ],
+                                    'auth_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => 'credencial-invalida',
+                                            'Tbk-Api-Key-Secret' => 'secret-invalido',
+                                        ],
+                                        'body' => '{}',
+                                    ],
+                                ],
+                            ],
+
+                            'authorize' => [
+                                'label' => 'Autorizar pago',
+                                'method' => 'POST',
+                                'path' => '/transactions',
+                                'presets' => [
+                                    'success' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555547',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => '{
+    "username": "juanperez",
+    "tbk_user": "{{steps.confirmar.tbk_user}}",
+    "amount": 1000,
+    "buy_order": "ordenCompraOneClick",
+}',
+                                    ],
+                                    'multicódigo' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555547',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => '{
+    "username": "juanperez",
+    "tbk_user": "{{steps.confirmar.tbk_user}}",
+    "buy_order": "ordenCompraOneClick",
+    "details": [
+        {
+            "commerce_code": 597055555536,
+            "buy_order": "ordenCompraTienda1",
+            "amount": 1000,
+            "installments_number": 2
+        },
+        {
+            "commerce_code": 597055555536,
+            "buy_order": "ordenCompraTienda2",
+            "amount": 2000,
+            "installments_number": 2
+        }
+    ]
+}',
+                                    ],
+                                    'auth_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => 'credencial-invalida',
+                                            'Tbk-Api-Key-Secret' => 'secret-invalido',
+                                        ],
+                                        'body' => '{}',
+                                    ],
+                                ],
+                            ],
+
+                            'status' => [
+                                'label' => 'Estado de la transacción',
+                                'method' => 'GET',
+                                'path' => '/transactions/{{steps.authorize.buy_order}}',
+                                'presets' => [
+                                    'success' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555547',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => '{
+    "username": "juanperez",
+    "tbk_user": "{{steps.confirmar.tbk_user}}",
+    "amount": 1000,
+    "buy_order": "ordenCompraOneClick",
+}',
+                                    ],
+                                    'auth_error' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => 'credencial-invalida',
+                                            'Tbk-Api-Key-Secret' => 'secret-invalido',
+                                        ],
+                                        'body' => '{}',
+                                    ],
+                                ],
+                            ],
+
+                            'refund' => [
+                                'label' => 'Reembolso transacción',
+                                'method' => 'GET',
+                                'path' => '/transactions/{{steps.authorize.buy_order}}/refunds',
+                                'presets' => [
+                                    'success' => [
+                                        'headers' => [
+                                            'Content-Type' => 'application/json',
+                                            'Tbk-Api-Key-Id' => '597055555547',
+                                            'Tbk-Api-Key-Secret' => '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C',
+                                        ],
+                                        'body' => '{
+    "amount": 20,
 }',
                                     ],
                                     'auth_error' => [

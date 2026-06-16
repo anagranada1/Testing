@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import Button from '@/components/atoms/Button.vue';
-import Select from '@/components/atoms/Select.vue';
 import Textarea from '@/components/atoms/Textarea.vue';
 import TextInput from '@/components/atoms/TextInput.vue';
 import FormField from '@/components/molecules/FormField.vue';
@@ -54,7 +53,6 @@ const props = defineProps<Props>();
 
 const open = defineModel<boolean>('open', { required: true });
 const method = defineModel<string>('method', { required: true });
-const path = defineModel<string>('path', { required: true });
 const headers = defineModel<HeaderEntry[]>('headers', { required: true });
 const body = defineModel<string>('body', { required: true });
 

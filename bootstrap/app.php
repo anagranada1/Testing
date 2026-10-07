@@ -17,6 +17,14 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
         ]);
+
+        // Transbank devuelve al usuario con un POST cross-site (token_ws),
+        // sin token CSRF y sin cookie de sesión (SameSite=lax).
+        $middleware->validateCsrfTokens(except: [
+            'finalUrl', 'url', 'forms/*/return'
+        ]);
+
+        $middleware->trustProxies(at: '*'); //QUITAR
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

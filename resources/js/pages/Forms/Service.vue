@@ -3,20 +3,7 @@ import { Head } from '@inertiajs/vue3';
 import MultiStepServiceForm from '@/components/organisms/MultiStepServiceForm.vue';
 import ServiceForm from '@/components/organisms/ServiceForm.vue';
 import AppLayout from '@/components/templates/AppLayout.vue';
-
-interface PresetData {
-    headers: Record<string, string>;
-    body: string;
-}
-
-interface StepConfig {
-    id: string;
-    label: string;
-    method: string;
-    path: string;
-    note: string;
-    presets: Record<string, PresetData>;
-}
+import type { PresetData, StepConfig } from '@/types/pipeline';
 
 interface Props {
     slug: string;

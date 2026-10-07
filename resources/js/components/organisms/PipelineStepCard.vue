@@ -9,35 +9,7 @@ import HeadersEditor from '@/components/molecules/HeadersEditor.vue';
 import StatusBadge from '@/components/molecules/StatusBadge.vue';
 import Tabs from '@/components/molecules/Tabs.vue';
 import type { TabDef } from '@/components/molecules/Tabs.vue';
-
-interface PresetData {
-    headers: Record<string, string>;
-    body: string;
-}
-
-interface BrowserRedirect {
-    url: string;
-    params: Record<string, string>;
-}
-
-interface StepConfig {
-    id: string;
-    label: string;
-    method: string;
-    path: string;
-    note: string;
-    presets: Record<string, PresetData>;
-    browser_redirect: BrowserRedirect | null;
-}
-
-interface ExecutionResult {
-    targetUrl?: string;
-    status?: number;
-    body?: string;
-    headers?: Record<string, string[]>;
-    error?: string;
-    parsed?: unknown;
-}
+import type { ExecutionResult, StepConfig } from '@/types/pipeline';
 
 interface Props {
     step: StepConfig;

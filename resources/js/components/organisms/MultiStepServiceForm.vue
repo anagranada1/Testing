@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { router } from '@inertiajs/vue3';
-import { computed, reactive, ref, watch } from 'vue';
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
 import Button from '@/components/atoms/Button.vue';
 import Select from '@/components/atoms/Select.vue';
 import TextInput from '@/components/atoms/TextInput.vue';
@@ -8,26 +8,8 @@ import FormField from '@/components/molecules/FormField.vue';
 import type { HeaderEntry } from '@/components/molecules/HeaderRow.vue';
 import PipelineStepCard from '@/components/organisms/PipelineStepCard.vue';
 import { useMultiStep } from '@/composables/useMultiStep';
-
-interface PresetData {
-    headers: Record<string, string>;
-    body: string;
-}
-
-interface BrowserRedirect {
-    url: string;
-    params: Record<string, string>;
-}
-
-interface StepConfig {
-    id: string;
-    label: string;
-    method: string;
-    path: string;
-    note: string;
-    presets: Record<string, PresetData>;
-    browser_redirect: BrowserRedirect | null;
-}
+import { RETURN_MESSAGE_SOURCE } from '@/types/pipeline';
+import type { ExecutionResult, ReturnMessage, StepConfig } from '@/types/pipeline';
 
 interface StepLocalState {
     method: string;
@@ -36,15 +18,6 @@ interface StepLocalState {
     body: string;
     preset: string;
     response: ExecutionResult | null;
-}
-
-interface ExecutionResult {
-    targetUrl?: string;
-    status?: number;
-    body?: string;
-    headers?: Record<string, string[]>;
-    error?: string;
-    parsed?: unknown;
 }
 
 interface Props {
@@ -78,7 +51,6 @@ watch(baseUrl, (next) => {
     try {
         window.localStorage.setItem(STORAGE_KEY, next);
     } catch {
-        // localStorage no disponible (SSR / sandbox); ignoramos.
     }
 });
 
@@ -98,6 +70,7 @@ const stepStates = reactive<Record<string, StepLocalState>>({});
 const submitting = ref<Record<string, boolean>>({});
 const openCards = reactive<Record<string, boolean>>({});
 const runningAll = ref<boolean>(false);
+const lastRedirectStepId = ref<string>('');
 
 function headersFromMap(map: Record<string, string>): HeaderEntry[] {
     return Object.entries(map).map(([key, value]) => ({ key, value }));
@@ -132,7 +105,6 @@ function rebuildStates() {
 
     stepsForVersion.value.forEach((step, idx) => {
         stepStates[step.id] = buildInitialState(step);
-        // Sólo el primer paso abierto al inicio.
         openCards[step.id] = idx === 0;
     });
 
@@ -189,9 +161,6 @@ function getByPath(value: unknown, path: string[]): unknown {
     }, value);
 }
 
-// Captura comillas opcionales que rodeen el placeholder para saber si
-// estamos dentro de un string JSON. Eso decide qué fallback usar cuando
-// el placeholder no resuelve (null vs "" para no romper JSON).
 const PLACEHOLDER_RE = /(")?\{\{\s*steps\.([\w-]+)\.([\w.]+)\s*}}(")?/g;
 
 function interpolate(text: string): string {
@@ -212,7 +181,6 @@ function interpolate(text: string): string {
                     : undefined;
 
             if (value === undefined || value === null) {
-                // JSON-safe: "" dentro de comillas, null fuera.
                 return wrapped ? '""' : 'null';
             }
 
@@ -269,10 +237,16 @@ function triggerBrowserRedirect(step: StepConfig): boolean {
         return false;
     }
 
+    lastRedirectStepId.value = step.id;
+
     const form = document.createElement('form');
     form.method = 'POST';
     form.action = url;
     form.target = '_blank';
+    // Chrome aplica `noopener` implícito a target="_blank", lo que deja
+    // window.opener en null en la pestaña nueva y corta el camino de vuelta.
+    // `rel="opener"` lo restituye para que el retorno pueda avisarnos.
+    form.setAttribute('rel', 'opener');
 
     for (const [key, template] of Object.entries(redirect.params)) {
         const input = document.createElement('input');
@@ -294,10 +268,40 @@ function triggerBrowserRedirect(step: StepConfig): boolean {
     return false;
 }
 
-/**
- * Ejecuta un paso. Retorna true si la API respondió con un 2xx
- * (lo necesitamos para encadenar en "Ejecutar todo": si falla, paramos).
- */
+function handleReturnMessage(event: MessageEvent) {
+    if (event.origin !== window.location.origin) {
+        return;
+    }
+
+    const data = event.data as Partial<ReturnMessage> | null;
+
+    if (!data || data.source !== RETURN_MESSAGE_SOURCE) {
+        return;
+    }
+
+    if (data.slug !== props.slug) {
+        return;
+    }
+
+    const stepId = data.stepId || lastRedirectStepId.value;
+
+    if (!stepId || !stepStates[stepId]) {
+        return;
+    }
+
+    const params = data.params ?? {};
+    flow.complete(stepId, params);
+    stepStates[stepId].response = {
+        status: 200,
+        body: JSON.stringify(params, null, 2),
+        parsed: params,
+    };
+    openCards[stepId] = true;
+}
+
+onMounted(() => window.addEventListener('message', handleReturnMessage));
+onUnmounted(() => window.removeEventListener('message', handleReturnMessage));
+
 async function submit(stepId: string): Promise<boolean> {
     const step = stepsForVersion.value.find((s) => s.id === stepId);
 
@@ -356,12 +360,6 @@ async function submit(stepId: string): Promise<boolean> {
     }
 }
 
-/**
- * Ejecuta todos los pasos en serie con sus presets/cases actuales. Para
- * al primer error (status >= 400 o error de red) — los siguientes pasos
- * dependen de las respuestas previas via {{steps.<id>.<campo>}}, así que
- * encadenarlos sobre un fallo da basura.
- */
 async function submitAll() {
     if (runningAll.value) {
         return;
@@ -369,9 +367,6 @@ async function submitAll() {
 
     runningAll.value = true;
 
-    // Reset visual: todos los badges vuelven a "sin ejecutar" antes de
-    // arrancar. También limpiamos `flow` para que los placeholders de la
-    // corrida nueva sólo se resuelvan con respuestas de esta misma corrida.
     flow.reset();
     stepsForVersion.value.forEach((step) => {
         stepStates[step.id].response = null;
@@ -379,7 +374,6 @@ async function submitAll() {
 
     try {
         for (const step of stepsForVersion.value) {
-            // Abrimos la card del paso en curso para que se vea su progreso.
             openCards[step.id] = true;
             const ok = await submit(step.id);
 

@@ -14,7 +14,6 @@ const props = withDefaults(defineProps<Props>(), {
     disabled: false,
 });
 
-// Mapea las variantes locales a las del design system Spartan.
 const spartanVariant = computed(() => {
     switch (props.variant) {
         case 'secondary':
@@ -26,7 +25,6 @@ const spartanVariant = computed(() => {
     }
 });
 
-// SButton solo admite 'button' | 'submit'.
 const spartanType = computed(() =>
     props.type === 'submit' ? ('submit' as const) : ('button' as const),
 );

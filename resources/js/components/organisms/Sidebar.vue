@@ -25,8 +25,6 @@ const page = usePage<SharedProps>();
 
 const groups = computed<NavGroup[]>(() => page.props.nav ?? []);
 
-// SSidebar resalta el item cuyo `path` coincide con el modelValue; lo
-// mantenemos sincronizado con la URL actual de Inertia.
 const activePath = ref<string>(page.url);
 watch(
     () => page.url,

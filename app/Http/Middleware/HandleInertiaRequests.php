@@ -43,46 +43,35 @@ class HandleInertiaRequests extends Middleware
     }
 
     /**
-     * Build the sidebar navigation as a 2-level tree:
-     *
-     *   Pipelines
-     *     └── <servicio> → /forms/<slug>
-     *
-     * Cada nodo lleva un campo `type` ('group' | 'item') que el front usa
-     * para decidir si renderizar otra sección colapsable o un link plano.
-     *
      * @return array<int, array<string, mixed>>
      */
     private function buildNav(): array
     {
-        $services = (array) config('services', []);
+        $groups = [];
 
-        $pipelines = [];
-
-        foreach ($services as $slug => $service) {
-            if (! is_array($service)) {
+        foreach ((array) config('services', []) as $slug => $service) {
+            if (! is_array($service) || ! isset($service['kind'])) {
                 continue;
             }
 
-            $slug = (string) $slug;
-            $label = (string) ($service['label'] ?? $slug);
-            $kind = (string) ($service['kind'] ?? 'endpoint');
+            $kind = (string) $service['kind'];
+            $title = (string) ($service['group'] ?? ($kind === 'pipeline' ? 'Pipelines' : 'Endpoints'));
 
-            if ($kind === 'pipeline') {
-                $pipelines[] = [
-                    'type' => 'item',
-                    'label' => $label,
-                    'href' => '/forms/' . $slug,
-                ];
-            }
+            $groups[$title][] = [
+                'type' => 'item',
+                'label' => (string) ($service['label'] ?? $slug),
+                'href' => '/forms/'.$slug,
+            ];
         }
 
-        return [
-            [
+        return array_map(
+            fn (string $title, array $items): array => [
                 'type' => 'group',
-                'title' => 'Pipelines',
-                'items' => $pipelines,
+                'title' => $title,
+                'items' => $items,
             ],
-        ];
+            array_keys($groups),
+            $groups,
+        );
     }
 }

@@ -52,7 +52,6 @@ watch(baseUrl, (next) => {
     try {
         window.localStorage.setItem(STORAGE_KEY, next);
     } catch {
-        // localStorage no disponible; ignoramos.
     }
 });
 

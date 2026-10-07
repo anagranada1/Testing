@@ -56,3 +56,6 @@ placetopay_test
 /wiki_rest
 .scannerwork
 .phpunit.cache/
+
+# Documentación de trabajo (Transbank destilado para IA), no se sube
+/transbank-docs

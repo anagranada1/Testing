@@ -2,98 +2,82 @@
 
 namespace App\Http\Controllers;
 
-use App\ServiceHelper;
+use App\Http\Requests\ExecuteServiceRequest;
+use App\Services\ServiceExecutor;
+use App\Services\ServiceFormPresenter;
+use App\Services\ServiceRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 use Inertia\Response;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 class ServiceFormController
 {
-    public function show(string $slug): Response
+    public function __construct(private readonly ServiceRepository $services) {}
+
+    public function show(string $slug, ServiceFormPresenter $presenter): Response
     {
-        $config = ServiceHelper::serviceConfig($slug);
+        $definition = $this->services->find($slug);
 
-        $defaultBaseUrl = rtrim(config('services.base_url'), '/');
-        $multiStep = (bool) ($config['multi_step'] ?? false);
+        return Inertia::render(
+            'Forms/Service',
+            $presenter->present($definition, $this->services->defaultBaseUrl()),
+        );
+    }
 
-        return Inertia::render('Forms/Service', [
-            'slug' => $slug,
-            'label' => ($config['label'] ?? $slug),
-            'description' => ($config['description'] ?? ''),
-            'defaultBaseUrl' => $defaultBaseUrl,
-            'basePath' => ($config['base_path'] ?? ''),
-            'basePathByVersion' => ServiceHelper::basePathByVersion($config),
-            'multiStep' => $multiStep,
-            'versions' => array_keys($config['versions'] ?? []),
-            'defaults' => $multiStep ? null : ($config['versions'] ?? null),
-            'steps' => $multiStep ? ServiceHelper::stepsByVersion($config['versions'] ?? []) : null,
-            'initialMethod' => null,
-            'initialPath' => null,
+    public function execute(ExecuteServiceRequest $request, string $slug, ServiceExecutor $executor): JsonResponse
+    {
+        $definition = $request->definition();
+
+        $baseUrl = $request->baseUrlOverride()
+            ?? $definition->baseUrl()
+            ?? $this->services->defaultBaseUrl();
+        $targetUrl = $definition->targetUrl($baseUrl, $request->version(), $request->pathSuffix());
+
+        $result = $executor->execute(
+            $request->targetMethod(),
+            $targetUrl,
+            $request->headerMap(),
+            $request->body(),
+        );
+
+        return response()->json(
+            $result->toArray(),
+            $result->failed() ? HttpResponse::HTTP_BAD_GATEWAY : HttpResponse::HTTP_OK,
+        );
+    }
+
+    public function redirectReturn(Request $request, string $slug): Response
+    {
+        $definition = $this->services->find($slug);
+
+        return Inertia::render('Forms/Return', [
+            'slug' => $definition->slug,
+            'label' => $definition->label(),
+            'method' => $request->method(),
+            'params' => array_map(
+                static fn ($value): string => is_scalar($value) ? (string) $value : json_encode($value),
+                $request->except('_token'),
+            ),
         ]);
     }
 
-    public function execute(Request $request, string $slug): JsonResponse
+    public function finalUrl(Request $request)
     {
-        $config = ServiceHelper::serviceConfig($slug);
-
-        $payload = $request->validate([
-            'method' => ['required', 'string', 'in:GET,POST,PUT,PATCH,DELETE'],
-            'version' => ['required', 'string', 'in:'.implode(',', array_keys($config['versions'] ?? []))],
-            'pathSuffix' => ['nullable', 'string', 'max:1000'],
-            'baseUrl' => ['nullable', 'string', 'max:500'],
-            'headers' => ['array'],
-            'headers.*.key' => ['nullable', 'string'],
-            'headers.*.value' => ['nullable', 'string'],
-            'body' => ['nullable', 'string'],
+        logger()->debug('FinalUrl request received', [
+            'request' => $request->all(),
         ]);
 
-        $headers = collect($payload['headers'] ?? [])
-            ->filter(fn ($row) => filled($row['key'] ?? null))
-            ->mapWithKeys(fn ($row) => [$row['key'] => $row['value'] ?? ''])
-            ->all();
+        return Inertia::render('Welcome');
+    }
 
-        $baseUrl = rtrim(
-            filled($payload['baseUrl'] ?? null)
-                ? $payload['baseUrl']
-                : config('services.base_url'),
-            '/'
-        );
-        $version = $payload['version'];
-        $basePath = (
-            $config['versions'][$version]['base_path']
-                ?? $config['base_path']
-                ?? ''
-        );
-        $pathSuffix = ($payload['pathSuffix'] ?? '');
+    public function url(Request $request)
+    {
+        logger()->debug('Url request received', [
+            'request' => $request->all(),
+        ]);
 
-        $targetUrl = $baseUrl.$basePath.'/'.$version.$pathSuffix;
-
-        $client = Http::withHeaders($headers);
-
-        if (filled($payload['body'] ?? null)) {
-            $client = $client->withBody(
-                $payload['body'],
-                $headers['Content-Type'] ?? 'application/json'
-            );
-        }
-
-        try {
-            $response = $client->send($payload['method'], $targetUrl);
-
-            return response()->json([
-                'targetUrl' => $targetUrl,
-                'status' => $response->status(),
-                'headers' => $response->headers(),
-                'body' => $response->body(),
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'targetUrl' => $targetUrl,
-                'error' => $e->getMessage(),
-            ], HttpResponse::HTTP_BAD_GATEWAY);
-        }
+        return Inertia::render('Welcome');
     }
 }
